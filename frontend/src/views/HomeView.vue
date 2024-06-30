@@ -4,7 +4,7 @@
 </template>
 
 <script setup lang="ts">
-import { MapNode, MapNodeType, PolyNode, RectNode, type MapData } from '@/rendering/map-data';
+import { ClickActions, MapNode, MapNodeType, PolyNode, RectNode, type MapData } from '@/rendering/map-data';
 import { MapRenderer } from '@/rendering/map-renderer';
 // import * as d3 from 'd3';
 import { onMounted } from 'vue';
@@ -19,57 +19,89 @@ let data = {} as MapData;
 {
     let mapNode = new MapNode();
     mapNode.id = "container";
-    mapNode.x = 100;
-    mapNode.y = 100;
-    mapNode.type = MapNodeType.Container;
-
-    let mapNodeChild = new RectNode();
-    mapNodeChild.id = "red";
-    mapNodeChild.x = 50;
-    mapNodeChild.y = 50;
-    mapNodeChild.width = 200;
-    mapNodeChild.height = 150;
-    mapNodeChild.color = "red";
-
-    let mapNodeChild2 = new RectNode();
-    mapNodeChild2.id = "green";
-    mapNodeChild2.x = 50;
-    mapNodeChild2.y = 50 + 150 + 10;
-    mapNodeChild2.width = 200;
-    mapNodeChild2.height = 150;
-    mapNodeChild2.color = "green";
-
-
-    let mapNodeChild3 = new RectNode();
-    mapNodeChild3.id = "bg";
-    mapNodeChild3.x = 10;
-    mapNodeChild3.y = 10;
-    mapNodeChild3.width = 260;
-    mapNodeChild3.height = 400;
-    mapNodeChild3.color = "grey";
-
-
+    mapNode.x = 10;
+    mapNode.y = 10;
 
     let mapNodeChild4 = new PolyNode();
     mapNodeChild4.id = "poly";
-    mapNodeChild4.x = 10;
-    mapNodeChild4.y = 10;
+    mapNodeChild4.x = 0;
+    mapNodeChild4.y = 0;
     mapNodeChild4.color = "yellow";
     mapNodeChild4.points = [
-        { x: 10, y: 10 },
-        { x: 10, y: 400 },
-        { x: 260, y: 400 },
-        { x: 260, y: 10 },
-        { x: 130, y: 200 },
-        { x: 10, y: 10 },
+        { x: 0, y: 0 },
+        { x: 500, y: 0 },
+        { x: 500, y: 220 },
+        { x: 150, y: 220 },
+        { x: 150, y: 320 },
+        { x: 0, y: 320 },
     ]
+    
+    
+    mapNode.addChild(mapNodeChild4);
+    {
+        let shelf = new MapNode();
+        shelf.id = "shelf1";
+        shelf.x = 275;
+        shelf.y = 10;
 
 
-    mapNode.childs.set(MapNodeType.Rect, [mapNodeChild4]);
+        let mapNodeChild = new RectNode();
+        mapNodeChild.id = "shelf_main_rect";
+        mapNodeChild.x = 0;
+        mapNodeChild.y = 0;
+        mapNodeChild.width = 200;
+        mapNodeChild.height = 50;
+        mapNodeChild.color = "red";
+        shelf.addChild(mapNodeChild);
+        mapNode.addChild(shelf);
+
+    }
+
+    {
+        let shelf = new MapNode();
+        shelf.id = "shelf2";
+        shelf.x = 275;
+        shelf.y = 10 + 50 + 25;
+
+
+        let mapNodeChild = new RectNode();
+        mapNodeChild.id = "shelf_main_rect";
+        mapNodeChild.x = 0;
+        mapNodeChild.y = 0;
+        mapNodeChild.width = 200;
+        mapNodeChild.height = 50;
+        mapNodeChild.color = "red";
+
+        mapNodeChild.clickable = true;
+        mapNodeChild.clickAction = ClickActions.ZoomToParent;
+
+        shelf.addChild(mapNodeChild);
+        mapNode.addChild(shelf);
+
+    }
+    
+    {
+        let shelf = new MapNode();
+        shelf.id = "shelf3";
+        shelf.x = 275;
+        shelf.y = 10 + (50 + 25)*2;
+
+
+        let mapNodeChild = new RectNode();
+        mapNodeChild.id = "shelf_main_rect";
+        mapNodeChild.x = 0;
+        mapNodeChild.y = 0;
+        mapNodeChild.width = 200;
+        mapNodeChild.height = 50;
+        mapNodeChild.color = "red";
+        shelf.addChild(mapNodeChild);
+        mapNode.addChild(shelf);
+
+    }
 
     data.root = mapNode;
-    data.height = 600;
-    data.width = 600;
+    data.height = 500;
+    data.width = 1100;
 }
 
 function draw() {
