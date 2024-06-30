@@ -46,12 +46,13 @@ function zoomTo(event: any, d: MapNode, object: any, root: MapRenderer) {
 
 function zoomToParent(event: any, d: MapNode, object: any, root: MapRenderer) {
     console.log(object)
+    if(!d.parent) return;
     // add do/undo logic to all elements 
     d3.select(object).transition().style("fill", "green");
 
-    let box = d.getBBox();
+    let box = d.parent.getBBox();
 
-    let parent = d.parent;
+    let parent: MapNode | undefined = d.parent;
     while (parent != undefined) {
         box[0][0] += parent.x;
         box[1][0] += parent.x;

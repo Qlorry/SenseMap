@@ -1,6 +1,9 @@
 <template>
     <h1>This is home page</h1>
-    <div id="map"> </div>
+    <div class="container">
+
+        <div id="map"> </div>
+    </div>
 </template>
 
 <script setup lang="ts">
@@ -35,8 +38,8 @@ let data = {} as MapData;
         { x: 150, y: 320 },
         { x: 0, y: 320 },
     ]
-    
-    
+
+
     mapNode.addChild(mapNodeChild4);
     {
         let shelf = new MapNode();
@@ -72,19 +75,33 @@ let data = {} as MapData;
         mapNodeChild.height = 50;
         mapNodeChild.color = "red";
 
-        mapNodeChild.clickable = true;
-        mapNodeChild.clickAction = ClickActions.ZoomToParent;
-
         shelf.addChild(mapNodeChild);
-        mapNode.addChild(shelf);
+        const sections = 3;
+        const padding = 5;
+        const gap = 6;
+        for (let i = 0; i < sections; i++) {
 
+            let section = new RectNode();
+            section.id = "section" + i;
+            section.clickable = true;
+            section.clickAction = ClickActions.ZoomToParent;
+
+            section.width = ((mapNodeChild.width - (gap * (sections-1)) - padding * 2) / sections);
+            section.height = (mapNodeChild.height - padding * 2);
+            section.x = padding + section.width * i + gap * i;
+            section.y = padding;
+            section.color = "purple";
+            shelf.addChild(section);
+        }
+
+        mapNode.addChild(shelf);
     }
-    
+
     {
         let shelf = new MapNode();
         shelf.id = "shelf3";
         shelf.x = 275;
-        shelf.y = 10 + (50 + 25)*2;
+        shelf.y = 10 + (50 + 25) * 2;
 
 
         let mapNodeChild = new RectNode();
@@ -96,7 +113,6 @@ let data = {} as MapData;
         mapNodeChild.color = "red";
         shelf.addChild(mapNodeChild);
         mapNode.addChild(shelf);
-
     }
 
     data.root = mapNode;
