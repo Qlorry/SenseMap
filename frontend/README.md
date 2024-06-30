@@ -43,3 +43,6 @@ npm run test:unit
 ```sh
 npm run lint
 ```
+
+### Certs
+openssl req -x509 -newkey rsa:4096 -sha256 -days 365 -nodes -keyout sense.map.key -out sense.map.crt -addext "subjectAltName=IP:192.168.0.225"

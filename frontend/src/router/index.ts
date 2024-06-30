@@ -8,6 +8,11 @@ const router = createRouter({
       path: '/',
       name: 'home',
       component: HomeView
+    },
+    {
+      path: '/qr',
+      name: "qr",
+      component: () => import('../views/QRView.vue')
     }
   ]
 })
