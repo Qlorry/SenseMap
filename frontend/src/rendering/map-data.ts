@@ -19,6 +19,25 @@ export class MapNode {
 
     public x: number = 0; // workspace coordinates
     public y: number = 0; // workspace coordinates
+
+}
+
+export class RectNode extends MapNode {
+
     public width: number = 0;
     public height: number = 0;
-} 
+
+    constructor() {
+        super();
+        this.type = MapNodeType.Rect;
+    }
+}
+
+export class PolyNode extends MapNode {
+    public points: Array<{ x: number, y: number }> = [];
+
+    constructor() {
+        super();
+        this.type = MapNodeType.Poly;
+    }
+}

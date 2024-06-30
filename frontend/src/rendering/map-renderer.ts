@@ -2,6 +2,7 @@ import * as d3 from "d3";
 import { MapNodeType, type MapData, type MapNode } from "./map-data";
 import { RectRenderer } from "./rect-renderer";
 import { ContainerRenderer } from "./container-renderer";
+import { PolyRenderer } from "./poly-renderer";
 
 type RootSelection = d3.Selection<SVGSVGElement, undefined, null, undefined>;
 type NodeSelection = d3.Selection<d3.BaseType, MapNode, null, undefined>;
@@ -33,7 +34,7 @@ function getRenderer(type: MapNodeType) {
         case MapNodeType.Rect:
             return RectRenderer;
         case MapNodeType.Poly:
-            return RectRenderer;
+            return PolyRenderer;
     }
 }
 
