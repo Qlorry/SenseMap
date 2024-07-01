@@ -2,7 +2,7 @@ import express from "express"
 import * as dotevnv from "dotenv"
 import cors from "cors"
 import helmet from "helmet"
-import { userRouter } from "./users/users.routes"
+import { bookRouter } from "./book/book.routes"
 import { productRouter } from "./products/product.routes"
 
 import fs from 'fs'
@@ -28,7 +28,7 @@ app.use(express.urlencoded({extended : true}))
 app.use(cors())
 app.use(helmet())
 
-app.use('/api', userRouter)
+app.use('/api', bookRouter)
 
 var server = https.createServer(credentials, app);
 server.listen(PORT, () => {
