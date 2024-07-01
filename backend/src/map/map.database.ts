@@ -1,9 +1,6 @@
-import { Book, UnitBook, Books } from "./book.interface";
-import bcrypt from "bcryptjs"
-import { v4 as random } from "uuid"
 import fs from "fs"
 
-import { MapData } from "../../../frontend/src/rendering/map-data";
+import { MapData, MapNode } from "../../../frontend/src/rendering/map-data";
 
 let map: MapData = load()
 
@@ -13,7 +10,7 @@ function load(): MapData {
     return JSON.parse(data)
   } catch (error) {
     console.log(`Error ${error}`)
-    return {}
+    return { height: 100, width: 100, root: new MapNode() };
   }
 }
 
